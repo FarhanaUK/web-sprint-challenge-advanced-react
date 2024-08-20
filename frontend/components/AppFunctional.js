@@ -24,7 +24,7 @@ export default function AppFunctional(props) {
     // It's enough to know what index the "B" is at, to be able to calculate them.
 const x = index % 3 + 1
 const y = Math.floor(index / 3 ) + 1
-console.log(x)
+
 return {x , y} 
     
   }
@@ -57,21 +57,21 @@ const {x, y} = getXY()
 let newX = x
 let newY = y
 
-if(direction === 'left' && y > 0){
- newY -=1
+if(direction === 'left' && x > 1){
+ newX -=1
  
  }
- else if(direction === 'right' && y < 3){
-newY +=1
+ else if(direction === 'right' && x < 3){
+newX +=1
  }
- else if(direction === 'up' && x > 0 ){
-  newX -= 1
+ else if(direction === 'up' && y > 1 ){
+  newY -= 1
  }
- else if(direction === 'down' && x < 3){
-  newX += 1
+ else if(direction === 'down' && y < 3){
+  newY += 1
  }
 
- const newIndex = (newX -1 )* 3 + (newY-1)
+ const newIndex = (newY - 1 )* 3 + (newX-1)
  return newIndex >=0 && newIndex < 9 ? newIndex : index
   }
 
@@ -83,6 +83,10 @@ newY +=1
       setIndex(newIndex);
       setSteps(prevSteps => prevSteps + 1);
     }
+    else if (newIndex === null) {
+      setMessages("You can't move in that direction");
+    }
+    
   }
 
     // This event handler can use the helper above to obtain a new index for the "B",
@@ -115,7 +119,7 @@ newY +=1
             setMessages(err.response.data.message);
             if(email === 'foo@bar.baz'){
               setMessages(err.response.data.message)
-            setEmail(initialEmail)
+              setEmail(initialEmail)
             }
         });
 }
