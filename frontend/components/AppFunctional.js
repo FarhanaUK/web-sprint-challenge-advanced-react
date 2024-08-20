@@ -13,13 +13,16 @@ const URL = `http://localhost:9000/api/result`
 export default function AppFunctional(props) {
   const [steps, setSteps] = useState(initialSteps)
   const [email, setEmail] = useState(initialEmail)
+  const [index, setIndex] = useState(initialIndex)
+  const [message, setMessages] = useState(initialMessage)
+  
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
-    return x + y 
+    setSteps()
   }
 
   function getXYMessage() {
@@ -30,6 +33,11 @@ export default function AppFunctional(props) {
 
   function reset() {
     // Use this helper to reset all states to their initial values.
+    setSteps(initialSteps)
+    setEmail(initialEmail)
+    setIndex(initialIndex)
+    setMessages(initialMessage)
+    
   }
 
   function getNextIndex(direction) {
