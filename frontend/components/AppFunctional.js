@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios'
+
 
 // Suggested initial states
 const initialMessage = ''
@@ -6,7 +8,11 @@ const initialEmail = ''
 const initialSteps = 0
 const initialIndex = 4 // the index the "B" is at
 
+const URL = `http://localhost:9000/api/result`
+
 export default function AppFunctional(props) {
+  const [steps, setSteps] = useState(initialSteps)
+  const [email, setEmails] = useState(initialEmail)
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -37,11 +43,25 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
-    // You will need this to update the value of the input.
+    const {value ,email} = evt.target
+
   }
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
+       // Use a POST request to send a payload to the server.
+    evt.preventDefault()
+    axios.post(URL, {x: getXY().x, y: getXY().y, steps, email})
+    .then(res => {
+      console.log('Response', res.data)
+      debugger
+    })
+    .catch(err => {
+      console.log('Error', err)
+      debugger
+      
+    })
+
+
   }
 
   return (
@@ -69,7 +89,7 @@ export default function AppFunctional(props) {
         <button id="down">DOWN</button>
         <button id="reset">reset</button>
       </div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input id="email" type="email" placeholder="type email"></input>
         <input id="submit" type="submit"></input>
       </form>
