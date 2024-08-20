@@ -107,10 +107,13 @@ newY +=1
         .then(res => {
             // Handle successful response
             setMessages(res.data.message);
-            setEmail(initialEmail)
+             setEmail(initialEmail)
+            // setMessages(initialMessage)
         })
         .catch(err => {
+          //if(email === 'foo@bar.baz')
             setMessages(err.response.data.message);
+            // setEmail(initialEmail)
         });
 }
 
