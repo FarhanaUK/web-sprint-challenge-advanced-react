@@ -57,34 +57,37 @@ const {x, y} = getXY()
 let newX = x
 let newY = y
 
-if(direction === 'left' && x > 1){
- newX -=1
+if(direction === 'left' && y > 1){
+ newY -=1
+ 
  }
- else if(direction === 'right' && x < 3){
-newX +=1
+ else if(direction === 'right' && y < 3){
+newY +=1
  }
- else if(direction === 'up' && y > 1){
-  newY -= 1
+ else if(direction === 'up' && x > 1 ){
+  newX -= 1
  }
- else if(direction === 'down' && y < 3){
-  newY += 1
+ else if(direction === 'down' && x < 3){
+  newX += 1
  }
 
  const newIndex = (newX -1 )* 3 + (newY-1)
- return newIndex
+ return newIndex 
   }
 
   function move(evt) {
-    const direction = evt.target.id
-  const currentIndex = getNextIndex(direction)
-    if(currentIndex != index)
-     setIndex(currentIndex)
-     setSteps(steps + 1)
-   }
+    const direction = evt.target.id;
+    const newIndex = getNextIndex(direction);
+
+    if (newIndex !== index) {
+      setIndex(newIndex);
+      setSteps(prevSteps => prevSteps + 1);
+    }
+  }
 
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
-  }
+  
 
   function onChange(evt) {
    
@@ -99,11 +102,11 @@ newX +=1
     axios.post(URL, {x: `${x}, ${y}`, steps, email})
     .then(res => {
       console.log('Response', res.data)
-      debugger
+    
     })
     .catch(err => {
       console.log('Error', err)
-      debugger
+   
       
     })
 
@@ -119,8 +122,8 @@ newX +=1
       <div id="grid">
         {
           [0, 1, 2, 3, 4, 5, 6, 7, 8].map(idx => (
-            <div key={idx} className={`square${idx === 4 ? ' active' : ''}`}>
-              {idx === 4 ? 'B' : null}
+            <div key={idx} className={`square${idx === index ? ' active' : ''}`}>
+              {idx === index ? 'B' : null}
             </div>
           ))
         }
