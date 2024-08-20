@@ -57,14 +57,14 @@ const {x, y} = getXY()
 let newX = x
 let newY = y
 
-if(direction === 'left' && y > 1){
+if(direction === 'left' && y > 0){
  newY -=1
  
  }
  else if(direction === 'right' && y < 3){
 newY +=1
  }
- else if(direction === 'up' && x > 1 ){
+ else if(direction === 'up' && x > 0 ){
   newX -= 1
  }
  else if(direction === 'down' && x < 3){
@@ -72,7 +72,7 @@ newY +=1
  }
 
  const newIndex = (newX -1 )* 3 + (newY-1)
- return newIndex 
+ return newIndex >=0 && newIndex < 9 ? newIndex : index
   }
 
   function move(evt) {
@@ -96,22 +96,22 @@ newY +=1
   }
 
   function onSubmit(evt) {
-       // Use a POST request to send a payload to the server.
-    evt.preventDefault()
-    const {x , y} = getXY()
-    axios.post(URL, {x: `${x}, ${y}`, steps, email})
-    .then(res => {
-      console.log('Response', res.data)
-    
-    })
-    .catch(err => {
-      console.log('Error', err)
-   
-      
-    })
+    // Prevent the default form submission behavior
+    evt.preventDefault();
 
+    // Extract x and y values from getXY function
+    const { x, y } = getXY();
 
-  }
+    // Send a POST request to the server
+    axios.post(URL, { x, y, steps, email })
+        .then(res => {
+            // Handle successful response
+            setMessages(res.data.message);
+        })
+        .catch(err => {
+            setMessages(err.response.data.message);
+        });
+}
 
   return (
     <div id="wrapper" className={props.className}>
