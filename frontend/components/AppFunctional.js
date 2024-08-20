@@ -111,8 +111,10 @@ newY +=1
             // setMessages(initialMessage)
         })
         .catch(err => {
-          //if(email === 'foo@bar.baz')
+          
             setMessages(err.response.data.message);
+            if(email === 'foo@bar.baz')
+              setMessages(err.response.data.message)
             // setEmail(initialEmail)
         });
 }
