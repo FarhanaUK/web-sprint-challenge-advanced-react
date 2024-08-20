@@ -52,7 +52,26 @@ return {x , y}
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
 
+const {x, y} = getXY()
 
+let newX = x
+let newY = y
+
+if(direction === 'left' && x > 1){
+ newX -=1
+ }
+ else if(direction === 'right' && x < 3){
+newX +=1
+ }
+ else if(direction === 'up' && y > 1){
+  newY -= 1
+ }
+ else if(direction === 'down' && y < 3){
+  newY += 1
+ }
+
+ const newIndex = (newX -1 )* 3 + (newY-1)
+ return newIndex
   }
 
   function move(evt) {
