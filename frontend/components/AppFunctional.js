@@ -22,9 +22,9 @@ export default function AppFunctional(props) {
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
-const x = index % 3 
-const y = Math.floor(index / 3 )
-
+const x = index % 3 + 1
+const y = Math.floor(index / 3 ) + 1
+console.log(x)
 return {x , y} 
     
   }
@@ -33,6 +33,8 @@ return {x , y}
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
     // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
     // returns the fully constructed string.
+    const {x, y} = getXY()
+    return `Coordinates (${x}, ${y})`
 
   }
 
@@ -67,7 +69,8 @@ return {x , y}
   function onSubmit(evt) {
        // Use a POST request to send a payload to the server.
     evt.preventDefault()
-    axios.post(URL, {x: getXY().x, y: getXY().y, steps, email})
+    const {x , y} = getXY()
+    axios.post(URL, {x: `${x}, ${y}`, steps, email})
     .then(res => {
       console.log('Response', res.data)
       debugger
@@ -84,7 +87,7 @@ return {x , y}
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
+        <h3 id="coordinates">{getXYMessage()}</h3>
         <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
