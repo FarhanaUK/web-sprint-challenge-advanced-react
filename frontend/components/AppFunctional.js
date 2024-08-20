@@ -12,13 +12,14 @@ const URL = `http://localhost:9000/api/result`
 
 export default function AppFunctional(props) {
   const [steps, setSteps] = useState(initialSteps)
-  const [email, setEmails] = useState(initialEmail)
+  const [email, setEmail] = useState(initialEmail)
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
+    return x + y 
   }
 
   function getXYMessage() {
@@ -43,7 +44,8 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
-    const {value ,email} = evt.target
+   
+    setEmail(evt.target.value)
 
   }
 
@@ -90,7 +92,7 @@ export default function AppFunctional(props) {
         <button id="reset">reset</button>
       </div>
       <form onSubmit={onSubmit}>
-        <input id="email" type="email" placeholder="type email"></input>
+        <input id="email" type="email" placeholder="type email" onChange={onChange}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
