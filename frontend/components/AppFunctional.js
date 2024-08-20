@@ -107,6 +107,7 @@ newY +=1
         .then(res => {
             // Handle successful response
             setMessages(res.data.message);
+            setEmail(initialEmail)
         })
         .catch(err => {
             setMessages(err.response.data.message);
