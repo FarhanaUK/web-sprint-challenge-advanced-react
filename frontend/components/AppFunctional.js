@@ -75,6 +75,13 @@ newX +=1
   }
 
   function move(evt) {
+    const direction = evt.target.id
+  const currentIndex = getNextIndex(direction)
+    if(currentIndex != index)
+     setIndex(currentIndex)
+     setSteps(steps + 1)
+   }
+
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
   }
