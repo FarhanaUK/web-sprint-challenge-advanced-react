@@ -70,6 +70,7 @@ newX +=1
  else if(direction === 'down' && y < 3){
   newY += 1
  }
+ 
 
  const newIndex = (newY - 1 )* 3 + (newX-1)
  return newIndex >=0 && newIndex < 9 ? newIndex : index
@@ -82,11 +83,22 @@ newX +=1
     if (newIndex !== index) {
       setIndex(newIndex);
       setSteps(prevSteps => prevSteps + 1);
-    }
-    else if (newIndex === null) {
-      setMessages("You can't move in that direction");
+      
+    }if (newIndex === index) {
+      if (direction === 'up' && getXY().y === 1) {
+        setMessages("You can't go up");
+      } else if (direction === 'down' && getXY().y === 3) {
+        setMessages("You can't go down");
+      } else if (direction === 'left' && getXY().x === 1) {
+        setMessages("You can't go left");
+      } else if (direction === 'right' && getXY().x === 3) {
+        setMessages("You can't go right");
+      }
+      return;
     }
     
+    setMessages(initialMessage)
+
   }
 
     // This event handler can use the helper above to obtain a new index for the "B",
@@ -128,7 +140,7 @@ newX +=1
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{getXYMessage()}</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="steps">{steps === 0 || steps > 1 ? `You moved ${steps} times` : `You moved ${steps} time`}</h3>
       </div>
       <div id="grid">
         {
